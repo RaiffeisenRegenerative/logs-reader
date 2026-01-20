@@ -25,6 +25,7 @@ Once the viewer starts:
 * `1` → Filter logs by origin: **email**
 * `2` → Filter logs by origin: **nextjs**
 * `0` → Clear origin filter
+* `d` → Filter logs by level: **debug**
 * `i` → Filter logs by level: **info**
 * `e` → Filter logs by level: **error**
 * `f` → Filter logs by level: **fatal**
