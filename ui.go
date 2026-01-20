@@ -24,8 +24,12 @@ const (
 
 func colorizeLevel(level string) string {
 	switch strings.ToLower(level) {
+	case "debug":
+		return level + ColorReset
 	case "info":
 		return ColorGreen + level + ColorReset
+	case "warn":
+		return ColorYellow + level + ColorReset
 	case "error":
 		return ColorRed + level + ColorReset
 	case "fatal":
@@ -39,7 +43,9 @@ type keyMap struct {
 	filterEmail  key.Binding
 	filterNextjs key.Binding
 	clearOrigin  key.Binding
+	filterDebug  key.Binding
 	filterInfo   key.Binding
+	filterWarn   key.Binding
 	filterError  key.Binding
 	filterFatal  key.Binding
 	clearLevel   key.Binding
@@ -51,7 +57,9 @@ func newKeyMap() *keyMap {
 		filterEmail:  key.NewBinding(key.WithKeys("1"), key.WithHelp("1", "origin: email")),
 		filterNextjs: key.NewBinding(key.WithKeys("2"), key.WithHelp("2", "origin: nextjs")),
 		clearOrigin:  key.NewBinding(key.WithKeys("0"), key.WithHelp("0", "clear origin")),
+		filterDebug:  key.NewBinding(key.WithKeys("d"), key.WithHelp("d", "level: debug")),
 		filterInfo:   key.NewBinding(key.WithKeys("i"), key.WithHelp("i", "level: info")),
+		filterWarn:   key.NewBinding(key.WithKeys("w"), key.WithHelp("w", "level: warn")),
 		filterError:  key.NewBinding(key.WithKeys("e"), key.WithHelp("e", "level: error")),
 		filterFatal:  key.NewBinding(key.WithKeys("f"), key.WithHelp("f", "level: fatal")),
 		clearLevel:   key.NewBinding(key.WithKeys("c"), key.WithHelp("c", "clear level")),
@@ -108,8 +116,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.keys.clearOrigin):
 			m.activeOrigin = ""
 			m.applyFilters()
+		case key.Matches(msg, m.keys.filterDebug):
+			m.activeLevel = "debug"
+			m.applyFilters()
 		case key.Matches(msg, m.keys.filterInfo):
 			m.activeLevel = "info"
+			m.applyFilters()
+		case key.Matches(msg, m.keys.filterWarn):
+			m.activeLevel = "warn"
 			m.applyFilters()
 		case key.Matches(msg, m.keys.filterError):
 			m.activeLevel = "error"

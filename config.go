@@ -48,7 +48,7 @@ func LoadConfig() (*Config, error) {
 		SSHUser:        getEnv("SSH_USER", "root"),
 		SSHKey:         getEnv("SSH_KEY", "~/.ssh/id_rsa"),
 		EmailPort:      parseInt("EMAIL_LOG_PORT"),
-		EmailLogPath:   getEnv("EMAIL_LOG_PATH", "email_logs/app.log"),
+		EmailLogPath:   getEnv("EMAIL_LOG_PATH", "email_logs/debug.log"),
 		NextjsPort:     parseInt("NEXTJS_LOG_PORT"),
 		NextjsLogFiles: strings.Split(getEnv("NEXTJS_LOG_FILES", ""), ","),
 	}, nil
